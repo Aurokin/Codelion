@@ -11,21 +11,27 @@ module.exports = {
   attributes: {
     fName: {
       type: 'string',
+      required: true,
     },
     lName: {
       type: 'string',
+      required: true,
     },
     userName: {
       type: 'string',
+      unique: true,
+      required: true,
     },
     password: {
       type: 'string',
+      required: true,
     },
     bio: {
       type: 'string',
     },
     email: {
       type: 'string',
+      unique: true,
     },
     admins: {
       collection: 'group',

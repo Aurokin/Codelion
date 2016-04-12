@@ -33,11 +33,16 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'home',
+    view: 'splash',
     locals: {
       layout: 'splashLayout'
     }
-  }
+  },
+  '/home': {
+    view: 'home'
+  },
+  '/logout': 'UserController.logout',
+  '/login': 'UserController.login',
 
   /***************************************************************************
   *                                                                          *

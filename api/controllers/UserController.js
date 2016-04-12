@@ -17,15 +17,15 @@ module.exports = {
 				res.json({ error: 'DB error' }, 500);
 			}
 			if (!user) {
-				res.view('home');
+				res.redirect('/');
 			}
 			else {
 				bcrypt.compare(req.body.password, user.password, function(err, match){
 					if (match) {
 						//console.log('login');
-						req.session.name = user.name;
+						req.session.userName = user.userName;
 						req.session.user = user.id;
-						res.redirect('/');
+						res.redirect('/home');
 					}
 					else {
 						res.view('error', {error: 'Password Not Correct'});
@@ -47,9 +47,9 @@ module.exports = {
 			if (err) {
 				return res.view('error', {error: 'Username/Email May Already Be Taken, Or Incorrect Password'});
 			}
-			req.session.name = user.name;
+			req.session.userName = user.userName;
 			req.session.user = user.id;
-			return res.redirect('/');
+			return res.redirect('/home');
 		});
 	}
 };
