@@ -46,6 +46,7 @@ module.exports.routes = {
   '/group/new': {
     view: 'group/new'
   },
+  '/group/all': 'GroupController.all',
 
   /***************************************************************************
   *                                                                          *

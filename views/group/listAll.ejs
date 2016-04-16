@@ -1,0 +1,15 @@
+<div class="container firstContainer">
+  <div class="jumbotron text-center">
+    <h1>All Groups</h1>
+    <% if (groups[0]) { %>
+     <h1> Have A Group!</h1>
+     <% groups.forEach(function(group) { %>
+       <div class="row">
+         <%= group.name %> - <%= group.about %>
+       </div>
+     <% }); %>
+    <% } else { %>
+      <h1> No Groups! </h1>
+    <% } %>
+  </div>
+</div>
