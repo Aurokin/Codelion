@@ -43,6 +43,9 @@ module.exports.routes = {
   },
   '/logout': 'UserController.logout',
   '/login': 'UserController.login',
+  '/group/new': {
+    view: 'group/new'
+  },
 
   /***************************************************************************
   *                                                                          *

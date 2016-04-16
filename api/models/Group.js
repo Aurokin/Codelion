@@ -10,12 +10,15 @@ module.exports = {
   attributes: {
     name: {
       type: 'string',
+      required: true,
+      unique: true,
     },
     about: {
       type: 'string',
     },
     admin: {
-      model: 'user'
+      model: 'user',
+      required: true,
     },
     members: {
       collection: 'user',
