@@ -1,0 +1,21 @@
+<div class="container firstContainer">
+  <div class="jumbotron text-center">
+    <h1>Personal Groups</h1>
+    <% if (user.admins[0]) { %>
+      <h1>Groups - Admin</h1>
+      <% user.admins.forEach(function(adminGroup) { %>
+        <div class="row"><%= adminGroup.name %> - <%= adminGroup.about %> - <%= adminGroup.id %></div>
+      <% }); %>
+    <% } else { %>
+      <h1>No Admin Groups</h1>
+    <% } %>
+    <% if (user.groups[0]) { %>
+      <h1>Groups - Member</h1>
+      <% user.groups.forEach(function(memberGroup) { %>
+        <div class="row"><%= memberGroup.name %> - <%= memberGroup.about %> - <%= memberGroup.id %></div>
+      <% }); %>
+    <% } else { %>
+      <h1>No Member Groups</h1>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="hideMe" id="groupID"><%= group[0].id %></div>
+
+<!-- Page Content -->
+<div class="container firstContainer">
+  <div class="jumbotron text-center">
+    <h1>Add Members By Name</h1>
+  </div>
+  <div class="row noMargin">
+    <form>
+      <div class="form-group">
+        <label for="addMemberUserName">User Name</label>
+        <input type="text" class="form-control" id="addMemberUserName" placeholder="User Name">
+      </div>
+      <button type="button" class="btn btn-default" id="addGroupMember">Submit</button>
+      <button type="button" class="btn btn-default">Cancel</button>
+    </form>
+  </div>
+</div>
+<div class="container" style="margin-top: 10px">
+  <div class="jumbotron text-center">
+    <h1>Current Members</h1>
+    <% group[0].members.forEach(function(member) { %>
+    <div class="row"><%= member.userName %> - <%= member.id %> <button type="button" class="btn btn-default removeGroupMember" value="<%= member.id %>">Remove</button></div>
+    <% }); %>
+  </div>
+</div>

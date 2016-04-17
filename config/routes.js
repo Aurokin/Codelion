@@ -47,6 +47,10 @@ module.exports.routes = {
     view: 'group/new'
   },
   '/group/all': 'GroupController.all',
+  '/user/groups': 'UserController.groups',
+  '/group/add/:id': 'GroupController.groupManagement',
+  'post /group/addMember': 'GroupController.addMember',
+  'post /group/removeMember': 'GroupController.removeMember',
 
   /***************************************************************************
   *                                                                          *

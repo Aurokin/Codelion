@@ -51,5 +51,23 @@ module.exports = {
 			req.session.user = user.id;
 			return res.redirect('/home');
 		});
-	}
+	},
+
+	groups: function(req, res) {
+		console.log(req.session.user);
+		if (req.session.user) {
+			User.findOne(req.session.user).populate('admins').populate('groups').exec(function(err, user) {
+				if (err) {
+					res.view('error', {error: 'Group Error'});
+				}
+				else {
+					console.log(user);
+					res.view('group/listPersonal', {user: user});
+				}
+			});
+		}
+		else {
+			res.view('error', {error: 'User Not Logged In'});
+		}
+	},
 };
