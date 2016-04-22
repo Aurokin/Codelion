@@ -67,3 +67,26 @@ $('.removeGroupMember').click(function(e) {
     console.log(data);
   });
 });
+
+$('#createNewPost').click(function(e) {
+  e.preventDefault();
+  var title = $('#newPostTitle').val();
+  var question = $('#newPostQuestion').val();
+  var author = parseInt($('#userID').text());
+  var group = parseInt($('#groupID').text());
+  console.log(title + ' ' + question + ' ' + author/* + ' ' + group*/);
+
+  var postData = {
+    title: title,
+    question: question,
+    author: author,
+    group: group,
+  }
+  console.log(postData);
+  console.log('Submitted Form');
+  io.socket.post("/post/create", postData, function (data, jwres) {
+    console.log('Posted');
+    console.log(data);
+  });
+
+});
