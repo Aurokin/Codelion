@@ -108,39 +108,37 @@ module.exports = {
 	},
 	posts: function(req, res) {
 		var groupID = req.param('id');
-		if (req.session.user) {
-			if (groupID) {
-				Group.find({where: {admin: req.session.user, id: groupID}}).populate('posts').exec(function(err, group) {
-					if (err) {
-						res.view('error', {error: 'Group Error'});
-					}
-					else {
-						console.log(group);
-						if (group[0]) {
+		if (req.session.user && groupID) {
+			Group.findOne(groupID).populate('posts').populate('members').exec(function(err, group) {
+				if (err) {
+					// Error
+					res.view('error', {error: 'Group Error'});
+				} else if (group) {
+					// Group Found
+					console.log(group);
+					if (group.admin == req.session.user) {
+						res.view('group/posts', {group: group});
+					} else {
+						var isMember = false;
+						group.members.forEach(function(member) {
+							if (member.id == req.session.user) {
+								isMember = true;
+							}
+						});
+						if (isMember == true) {
 							res.view('group/posts', {group: group});
 						} else {
-							Group.find({where: {members: req.session.user, id: groupID}}).populate('posts').exec(function(err, group) {
-								if (err) {
-									res.view('error', {error: 'Group Error'});
-								}
-								else {
-									console.log(group);
-									if (group[0]) {
-										res.view('group/posts', {group: group});
-									}
-									else {
-										res.view('error', {error: 'Group Not Found, Or You Are Not An Admin!'});
-									}
-								}
-							});			
+							res.view('error', {error: 'Member Not In Group'});
 						}
 					}
-				});
-			} else {
-				res.view('error', {error: 'No Group ID'});
-			}
+				} else {
+					// No Error, No Group
+					res.view('error', {error: 'No Group Found'});
+				}
+			});
 		} else {
-			res.view('error', {error: 'User Not Logged In'});
+			// No User Logged In Or Group ID
+			res.view('error', {error: 'User Not Logged In, Or No Group ID'});
 		}
 	},
 };

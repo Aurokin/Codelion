@@ -24,7 +24,7 @@
           <% if (user.groups[0]) { %>
             <% user.groups.forEach(function(memberGroup) { %>
               <tr>
-                <th><%= memberGroup.name %></th>
+                <th><a href="/group/posts/<%= memberGroup.id %>"><%= memberGroup.name %></a></th>
                 <th></th>
               </tr>
             <% }); %>

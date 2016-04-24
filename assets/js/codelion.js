@@ -18,7 +18,7 @@ $('#submitNewGroup').click(function(e) {
     console.log(data);
     if (data.createdAt) {
       console.log("Group Success!");
-      window.location.href = 'http://'+window.location.host+'/home';
+      window.location.href = 'http://'+window.location.host+'/';
     }
     else {
       console.log("ERROR!!!");
@@ -101,6 +101,12 @@ $('#createNewPost').click(function(e) {
   console.log(postData);
   console.log('Submitted Form');
   io.socket.post("/post/create", postData, function (data, jwres) {
+    if (data.createdAt) {
+      console.log("Group Success!");
+      window.location.href = 'http://'+window.location.host+'/group/posts/'+group;
+    } else {
+      alert("Post Error!");
+    }
     console.log('Posted');
     console.log(data);
   });

@@ -25,7 +25,7 @@ module.exports = {
 						//console.log('login');
 						req.session.userName = user.userName;
 						req.session.user = user.id;
-						res.redirect('/home');
+						res.redirect('/');
 					}
 					else {
 						res.view('error', {error: 'Password Not Correct'});
@@ -49,7 +49,7 @@ module.exports = {
 			}
 			req.session.userName = user.userName;
 			req.session.user = user.id;
-			return res.redirect('/home');
+			return res.redirect('/');
 		});
 	},
 
@@ -72,7 +72,7 @@ module.exports = {
 	},
 
 	home: function(req, res) {
-		console.log(req.session.user);
+		//console.log(req.session.user);
 		if (req.session.user) {
 			User.findOne(req.session.user).populate('admins').populate('groups').exec(function(err, user) {
 				if (err) {
@@ -85,7 +85,7 @@ module.exports = {
 			});
 		}
 		else {
-			res.view('error', {error: 'User Not Logged In'});
+			res.view('splash', {layout: 'splashLayout'});
 		}
 	},
 };

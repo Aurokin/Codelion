@@ -32,25 +32,22 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'splash',
-    locals: {
-      layout: 'splashLayout'
-    }
-  },
-  '/home': 'UserController.home',
+  '/': 'UserController.home',
   '/logout': 'UserController.logout',
   '/login': 'UserController.login',
   '/group/new': {
     view: 'group/new'
   },
+  // /group/all is for debug
   '/group/all': 'GroupController.all',
+  // /user/groups is for debug
   '/user/groups': 'UserController.groups',
   '/group/add/:id': 'GroupController.groupManagement',
   '/group/posts/:id': 'GroupController.posts',
+  '/group/createPost/:id': 'PostController.createPost',
+  '/group/post/:id': 'PostController.post',
   'post /group/addMember': 'GroupController.addMember',
   'post /group/removeMember': 'GroupController.removeMember',
-  '/group/createPost/:id': 'PostController.createPost',
 
   /***************************************************************************
   *                                                                          *
