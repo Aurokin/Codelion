@@ -162,12 +162,64 @@ $('.deleteCommentBtn').click(function(e) {
         if (data.success == "true") {
           swal({
             title: "Deleted!",
-            text: "Your imaginary file has been deleted.",
+            text: "Your comment has been deleted.",
             type: "success"},
             function() {
               location.reload();
             }
           );
+        } else if (data.success == "false") {
+          swal({
+            title: "Error!",
+            text: data.error,
+            type: "error",
+            confirmButtonText: "Ok!"
+          });
+        } else {
+
+        }
+      });
+    }
+  );
+});
+
+$('.deletePostBtn').click(function(e) {
+  var postID = parseInt($(this).val());
+  var groupID = parseInt($('#groupID').text());
+  swal({
+    title: "Are you sure?",
+    text: "This Post Will Be Gone Forever!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it!",
+    closeOnConfirm: false },
+    function(){
+      postData = {
+        postID: postID,
+        groupID: groupID,
+      }
+      console.log(postData);
+      io.socket.post("/post/remove", postData, function (data, jwres) {
+        console.log(data);
+        if (data.success == "true") {
+          swal({
+            title: "Deleted!",
+            text: "Your post has been deleted.",
+            type: "success"},
+            function() {
+              window.location.href = 'http://'+window.location.host+'/group/posts/'+groupID;
+            }
+          );
+        } else if (data.success == "false") {
+          swal({
+            title: "Error!",
+            text: data.error,
+            type: "error",
+            confirmButtonText: "Ok!"
+          });
+        } else {
+
         }
       });
     }

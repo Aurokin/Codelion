@@ -10,12 +10,15 @@ module.exports = {
   attributes: {
     reply: {
       type: 'string',
+      required: true,
     },
     author: {
       model: 'user',
+      required: true,
     },
     post: {
       model: 'post',
+      required: true,
     },
     date: {
       type: 'datetime',

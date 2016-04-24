@@ -11,21 +11,32 @@ module.exports = {
 		var groupID = req.param('id');
 		if (req.session.user) {
 			if (groupID) {
-				Group.find({where: {admin: req.session.user, id: groupID}}).exec(function(err, group) {
+				Group.findOne(groupID).populate('members').exec(function(err, group) {
 					if (err) {
 						res.view('error', {error: 'Group Error'});
 					}
 					else {
 						console.log(group);
 						console.log("^ printed from PostController");
-						if (group[0]) {
-							res.view('group/createPost', {group: group});
+						if (group) {
+							if (group.admin == req.session.user) {
+								res.view('group/createPost', {group: group});
+							} else {
+								var isMember = false;
+								group.members.forEach(function(member) {
+									if (member.id == req.session.user) {
+										isMember = true;
+									}
+								});
+								if (isMember == true) {
+									res.view('group/createPost', {group: group});
+								} else {
+									res.view('error', {error: 'You Are Not An Admin/Member!'});
+								}
+							}
 						} else {
-							res.view('error', {error: 'Group Not Found, Or You Are Not An Admin!'});
+							res.view('error', {error: 'Group Not Found'});
 						}
-//-----
-
-//-----
 					}
 				});
 			} else {
@@ -95,6 +106,54 @@ module.exports = {
 		}
 		else {
 			res.view('error', {error: 'User Not Logged In, Or No Group / Post ID!'});
+		}
+	},
+	deletePost: function(req, res) {
+		var postID = req.body.postID;
+		var groupID = req.body.groupID;
+		if (req.session.user && postID && groupID) {
+			Post.findOne(postID).exec(function(err, post) {
+				if (err) {
+					// Post Error!
+					res.json({success: "false", error: "Error Looking For Post!"});
+				} else if (post) {
+					if (post.author == req.session.user) {
+						// Author Is User, Delete Post!
+						Post.destroy(postID).exec(function (err) {
+							if (err) {
+								res.json({success: "false", error: "Error Destroying Post!"});
+							} else {
+									res.json({success: "true"});
+							}
+						});
+					} else {
+						Group.findOne({where: {id: groupID, admin: req.session.user}}).exec(function(err, group) {
+							if (err) {
+								// Group Error
+								res.json({success: "false", error: "Error Looking For Group!"});
+							} else if (group) {
+								// User Is Admin! Delete Post!
+								Post.destroy(postID).exec(function (err) {
+									if (err) {
+										res.json({success: "false", error: "Error Destroying Post!"});
+									} else {
+											res.json({success: "true"});
+									}
+								});
+							} else {
+								// Group Not Found!
+								res.json({success: "false", error: "User Is Not Admin Or Author!"});
+							}
+						});
+					}
+				} else {
+					// Post Not Found!
+					res.json({success: "false", error: "Post Not Found!"});
+				}
+			});
+		} else {
+			//User Not Logged In, No Post ID, Or No Group ID
+			res.json({success: "false", error: "User Not Logged In, Or Missing Post / Group ID!"});
 		}
 	},
 };

@@ -10,18 +10,22 @@ module.exports = {
   attributes: {
     title: {
       type: 'string',
+      required: true,
     },
     question: {
       type: 'string',
+      required: true,
     },
     date: {
       type: 'datetime',
     },
     author: {
       model: 'user',
+      required: true,
     },
     group: {
       model: 'group',
+      required: true,
     },
     comments: {
       collection: 'comment',

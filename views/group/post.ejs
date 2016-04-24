@@ -8,7 +8,7 @@
     </div>
     <div class="row noMargin">
       <div class="row noMargin" style="margin-bottom: 10px;">
-        <%= post.question %>
+        <%- post.question %>
       </div>
     </div>
     <div class="row">
@@ -16,9 +16,22 @@
         <p class="pull-left"><%= post.author.userName %></p>
       </div>
       <div class="col-xs-6">
-        <p class="pull-right">3 Comments</p>
+        <% var count = 0 %>
+        <% comments.forEach(function(comment) { %>
+          <% count = count + 1 %>
+        <% }); %>
+        <p class="pull-right"><%= count %> Comments</p>
       </div>
     </div>
+    <% if (session.user == post.author.id || session.user == group.admin) { %>
+      <div class="row">
+        <div class="col-xs-8">
+        </div>
+        <div class="col-xs-4">
+          <button class="btn btn-danger pull-right deletePostBtn" value="<%= post.id %>">Delete!</button>
+        </div>
+      </div>
+    <% } %>
   </div>
   <div class="well">
     <div class="form-group">

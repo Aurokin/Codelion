@@ -49,6 +49,7 @@ module.exports.routes = {
   'post /group/addMember': 'GroupController.addMember',
   'post /group/removeMember': 'GroupController.removeMember',
   'post /comment/remove': 'CommentController.deleteComment',
+  'post /post/remove': 'PostController.deletePost',
 
   /***************************************************************************
   *                                                                          *

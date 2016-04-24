@@ -1,3 +1,5 @@
+<div class="hideMe" id="groupID"><%= group.id %></div>
+
 <div class="container firstContainer">
   <div class="row noMargin">
     <h1><%= group.name %></h1>
@@ -25,12 +27,21 @@
           <a href="/group/post/<%= post.id %>"><h3><strong><%= post.title %></strong></h3></a>
         </div>
         <div class="col-md-10">
-          <p><%= post.question %></p>
+          <p><%- post.question %></p>
         </div>
         <div class="col-md-2">
           <span class="pull-right"><!--Time Since Post Goes Here --></span>
         </div>
       </div>
+      <% if (session.user == post.author || session.user == group.admin) { %>
+        <div class="row">
+          <div class="col-md-10">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-danger pull-right deletePostBtn" value="<%= post.id %>">Delete!</button>
+          </div>
+        </div>
+      <% } %>
       <hr>
       <% }); %>
       <a class="btn btn-success" id="CreatePostButton" href="/group/createPost/<%= group.id %>"> Create Post</a>
