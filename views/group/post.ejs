@@ -1,3 +1,6 @@
+<div class="hideMe" id="groupID"><%= post.group %></div>
+<div class="hideMe" id="postID"><%= post.id %></div>
+
 <div class="container firstContainer">
   <div class="well">
     <div class="row noMargin">
@@ -23,31 +26,17 @@
       <textarea class="form-control" rows="5" id="comment"></textarea>
     </div>
       <div class="text-right">
-          <a class="btn btn-success">Leave a Comment</a>
+          <a class="btn btn-success" id="submitComment">Leave a Comment</a>
       </div>
       <hr>
+      <% comments.forEach(function(comment) { %>
       <div class="row">
           <div class="col-md-12">
-              YosemiteDeveloper1
-              <span class="pull-right">10 days ago</span>
-              <p>Have you tried checking your processes tab to see if it's actually Sublime Text 3 causing the problem?</p>
+              <p><%= comment.author.userName%></p>
+              <p><%= comment.reply %></p>
           </div>
       </div>
       <hr>
-      <div class="row">
-          <div class="col-md-12">
-              C0d3sTh1ngsT00Fast
-              <span class="pull-right">12 days ago</span>
-              <p>It might be caused by Sublime's file indexing. Try adding "index_files": false to your user preferences (Preferences > Settings - User) and see if that helps.</p>
-          </div>
-      </div>
-      <hr>
-      <div class="row">
-          <div class="col-md-12">
-              Xx BeatsMe xX
-              <span class="pull-right">15 days ago</span>
-              <p>PhpConnector gives me also high cpu usage. I removed it ant all went back to normal. So, in my case both PhpConnector and SublimeLinter-phpcs provoke high cpu usage.</p>
-          </div>
-      </div>
+      <% }); %>
   </div>
 </div>

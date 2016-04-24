@@ -55,10 +55,17 @@ module.exports = {
 							return groupData;
 						})
 					;
-					return [postData, groupData];
+					var commentData = Comment.find({post: postID}).populate('author')
+						.then(function(commentData) {
+							return commentData;
+						})
+					;
+					return [postData, groupData, commentData];
 				})
-				.spread(function(postData, groupData) {
+				.spread(function(postData, groupData, commentData) {
+					console.log(postData);
 					console.log(groupData);
+					console.log(commentData)
 					var isInGroup = false;
 					if (groupData) {
 						if (groupData.admin == req.session.user) {
@@ -75,7 +82,7 @@ module.exports = {
 					}
 					console.log(isInGroup);
 					if (isInGroup == true) {
-						return res.view('group/post', {post: postData});
+						return res.view('group/post', {post: postData, comments: commentData});
 					}
 					else {
 						res.view('error', {error: 'User Not In Group!'});

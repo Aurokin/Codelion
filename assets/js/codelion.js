@@ -110,5 +110,32 @@ $('#createNewPost').click(function(e) {
     console.log('Posted');
     console.log(data);
   });
+});
+
+$('#submitComment').click(function(e) {
+  e.preventDefault();
+  var reply = $('#comment').val();
+  var author = parseInt($('#userID').text());
+  var post = parseInt($('#postID').text());
+  console.log(reply + ' ' + author + ' ' +  post);
+
+  var postData = {
+    reply: reply,
+    author: author,
+    post: post,
+  }
+
+  console.log(postData);
+  console.log('Submitted Form');
+  io.socket.post("/comment/create", postData, function (data, jwres) {
+    if (data.createdAt) {
+      console.log("Comment Created!");
+      location.reload();
+    } else {
+      alert("Comment Error!");
+    }
+    console.log('Posted');
+    console.log(data);
+  });
 
 });
