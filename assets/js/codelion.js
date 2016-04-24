@@ -45,6 +45,14 @@ $('#addGroupMember').click(function(e) {
   io.socket.post("/group/addMember", postData, function (data, jwres) {
     console.log('Posted');
     console.log(data);
+    if (data.success == "true") {
+      console.log("Added Group Member!");
+      location.reload();
+    }
+    else {
+      console.log("ERROR!!!");
+      window.alert("User Not Found, Or Already A Member!");
+    }
   });
 });
 
@@ -65,6 +73,14 @@ $('.removeGroupMember').click(function(e) {
   io.socket.post("/group/removeMember", postData, function (data, jwres) {
     console.log('Posted');
     console.log(data);
+    if (data.success == "true") {
+      console.log("Removed Group Member!");
+      location.reload();
+    }
+    else {
+      console.log("ERROR!!!");
+      window.alert("User Not Found, Or Not In Group!");
+    }
   });
 });
 

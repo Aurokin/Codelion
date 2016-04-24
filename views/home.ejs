@@ -13,17 +13,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>TestGroup1</th>
-            <th><a class="btn btn-default" href="#" role="button">Admin Panel</a>
-          </tr>
-          <tr>
-            <th>TestGroup2</th>
-            <th></th>
-          </tr>
+          <% if (user.admins[0]) { %>
+            <% user.admins.forEach(function(adminGroup) { %>
+              <tr>
+                <th><a href="/group/posts/<%= adminGroup.id %>"><%= adminGroup.name %></a></th>
+                <th><a class="btn btn-default" href="/group/add/<%= adminGroup.id %>" role="button">Admin Panel</a></th>
+              </tr>
+            <% }); %>
+          <% } %>
+          <% if (user.groups[0]) { %>
+            <% user.groups.forEach(function(memberGroup) { %>
+              <tr>
+                <th><%= memberGroup.name %></th>
+                <th></th>
+              </tr>
+            <% }); %>
+          <% } %>
         </tbody>
       </table>
-      <button id="button" type="button" class="btn btn-primary">Create Group</button>
+      <a id="button" role="button" class="btn btn-primary" href="/group/new">Create Group</a>
     </div>
     <div class="col-xs-6">
       <div class="well" id="well">

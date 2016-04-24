@@ -19,8 +19,23 @@
 <div class="container" style="margin-top: 10px">
   <div class="jumbotron text-center">
     <h1>Current Members</h1>
-    <% group[0].members.forEach(function(member) { %>
-    <div class="row"><%= member.userName %> - <%= member.id %> <button type="button" class="btn btn-default removeGroupMember" value="<%= member.id %>">Remove</button></div>
-    <% }); %>
+  </div>
+  <div class="row noMargin">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Remove Member</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% group[0].members.forEach(function(member) { %>
+          <tr>
+            <th><%= member.userName %></th>
+            <th><button type="button" class="btn btn-default removeGroupMember" value="<%= member.id %>">Remove</button></th>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
   </div>
 </div>

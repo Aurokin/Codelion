@@ -106,4 +106,41 @@ module.exports = {
 			res.json({success: 'false', error: 'No MemberID Or Group ID'});
 		}
 	},
+	posts: function(req, res) {
+		var groupID = req.param('id');
+		if (req.session.user) {
+			if (groupID) {
+				Group.find({where: {admin: req.session.user, id: groupID}}).populate('posts').exec(function(err, group) {
+					if (err) {
+						res.view('error', {error: 'Group Error'});
+					}
+					else {
+						console.log(group);
+						if (group[0]) {
+							res.view('group/posts', {group: group});
+						} else {
+							Group.find({where: {members: req.session.user, id: groupID}}).populate('posts').exec(function(err, group) {
+								if (err) {
+									res.view('error', {error: 'Group Error'});
+								}
+								else {
+									console.log(group);
+									if (group[0]) {
+										res.view('group/posts', {group: group});
+									}
+									else {
+										res.view('error', {error: 'Group Not Found, Or You Are Not An Admin!'});
+									}
+								}
+							});			
+						}
+					}
+				});
+			} else {
+				res.view('error', {error: 'No Group ID'});
+			}
+		} else {
+			res.view('error', {error: 'User Not Logged In'});
+		}
+	},
 };

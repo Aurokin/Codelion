@@ -38,9 +38,7 @@ module.exports.routes = {
       layout: 'splashLayout'
     }
   },
-  '/home': {
-    view: 'home'
-  },
+  '/home': 'UserController.home',
   '/logout': 'UserController.logout',
   '/login': 'UserController.login',
   '/group/new': {
@@ -49,6 +47,7 @@ module.exports.routes = {
   '/group/all': 'GroupController.all',
   '/user/groups': 'UserController.groups',
   '/group/add/:id': 'GroupController.groupManagement',
+  '/group/posts/:id': 'GroupController.posts',
   'post /group/addMember': 'GroupController.addMember',
   'post /group/removeMember': 'GroupController.removeMember',
   '/group/createPost/:id': 'PostController.createPost',

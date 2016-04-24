@@ -70,4 +70,22 @@ module.exports = {
 			res.view('error', {error: 'User Not Logged In'});
 		}
 	},
+
+	home: function(req, res) {
+		console.log(req.session.user);
+		if (req.session.user) {
+			User.findOne(req.session.user).populate('admins').populate('groups').exec(function(err, user) {
+				if (err) {
+					res.view('error', {error: 'Group Error'});
+				}
+				else {
+					console.log(user);
+					res.view('home', {user: user});
+				}
+			});
+		}
+		else {
+			res.view('error', {error: 'User Not Logged In'});
+		}
+	},
 };
