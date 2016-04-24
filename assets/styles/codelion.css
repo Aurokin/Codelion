@@ -9,3 +9,17 @@
 .noMargin {
   margin: 0px;
 }
+
+th {
+  font-size: 2em;
+}
+
+#splashNav {
+  background-color: black;
+}
+
+/*
+#mainSite {
+  background-image: url("/images/codelionBG.jpg");
+  background-repeat: repeat-y;
+} */
