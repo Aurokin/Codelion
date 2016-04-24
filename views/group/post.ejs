@@ -8,7 +8,7 @@
       <h2><%= post.title %></h2>
     </div>
     <div class="row noMargin">
-      <div class="row noMargin" style="margin-bottom: 10px;">
+      <div class="row noMargin markdownBlock" style="margin-bottom: 10px;">
         <%- post.question %>
       </div>
     </div>
@@ -44,13 +44,14 @@
       <div class="row">
           <a class="btn btn-success pull-right" id="submitComment">Leave a Comment</a>
           <a class="btn btn-success pull-right codeHelp" style="margin-right: 5px;">Code?</a>
+          <a class="btn btn-success pull-right markdownHelp" style="margin-right: 5px;">Markdown?</a>
       </div>
       <hr>
       <% comments.forEach(function(comment) { %>
         <div class="row">
             <div class="col-md-12">
                 <p><%= comment.author.userName%></p>
-                <div><%- comment.reply %></div>
+                <div class="markdownBlock"><%- comment.reply %></div>
             </div>
         </div>
         <% if (comment.author.id == session.user || group.admin == session.user) { %>

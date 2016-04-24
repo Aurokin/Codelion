@@ -259,3 +259,26 @@ $('.codeHelp').click(function(e) {
     confirmButtonText: "Got It!"
   });
 });
+
+$('.markdownHelp').click(function(e) {
+  swal({
+    title: "How To Format Your Post!",
+    text: "We use Markdown in order to help format your post<br><br>Syntax Information available <a target='_blank' href='https://daringfireball.net/projects/markdown/syntax'>here!</a>",
+    type: "info",
+    html: true,
+    confirmButtonText: "Got It!"
+  });
+});
+
+$(document).ready(function(){
+  var converter = new showdown.Converter();
+  $(".markdownBlock").each(function(index) {
+    var htmlBlock = $(this).html();
+    htmlBlock = $.trim(htmlBlock);
+    //console.log(htmlBlock);
+    var markdownBlock = converter.makeHtml(htmlBlock);
+    //console.log(markdownBlock);
+    $(this).html(markdownBlock);
+  });
+
+});
