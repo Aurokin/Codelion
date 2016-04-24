@@ -225,3 +225,12 @@ $('.deletePostBtn').click(function(e) {
     }
   );
 });
+
+$('.codeHelp').click(function(e) {
+  swal({
+    title: "How To Use Syntax Highlighting",
+    text: "Wrap Your Code In Pre, And Code Tags. \n\nEx) <pre><code>var count;</code></pre>",
+    type: "info",
+    confirmButtonText: "Got It!"
+  });
+});
