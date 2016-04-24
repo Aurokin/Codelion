@@ -82,7 +82,7 @@ module.exports = {
 					}
 					console.log(isInGroup);
 					if (isInGroup == true) {
-						return res.view('group/post', {post: postData, comments: commentData});
+						return res.view('group/post', {post: postData, comments: commentData, group: groupData});
 					}
 					else {
 						res.view('error', {error: 'User Not In Group!'});

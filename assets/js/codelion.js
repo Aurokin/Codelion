@@ -139,3 +139,37 @@ $('#submitComment').click(function(e) {
   });
 
 });
+
+$('.deleteCommentBtn').click(function(e) {
+  var commentID = parseInt($(this).val());
+  var groupID = parseInt($('#groupID').text());
+  swal({
+    title: "Are you sure?",
+    text: "This Comment Will Be Gone Forever!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it!",
+    closeOnConfirm: false },
+    function(){
+      postData = {
+        commentID: commentID,
+        groupID: groupID,
+      }
+      console.log(postData);
+      io.socket.post("/comment/remove", postData, function (data, jwres) {
+        console.log(data);
+        if (data.success == "true") {
+          swal({
+            title: "Deleted!",
+            text: "Your imaginary file has been deleted.",
+            type: "success"},
+            function() {
+              location.reload();
+            }
+          );
+        }
+      });
+    }
+  );
+});

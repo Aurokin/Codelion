@@ -7,9 +7,9 @@
       <h2><a href="#"><%= post.title %></a></h2>
     </div>
     <div class="row noMargin">
-      <p>
+      <div class="row noMargin" style="margin-bottom: 10px;">
         <%= post.question %>
-      </p>
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-6">
@@ -30,12 +30,21 @@
       </div>
       <hr>
       <% comments.forEach(function(comment) { %>
-      <div class="row">
-          <div class="col-md-12">
-              <p><%= comment.author.userName%></p>
-              <p><%= comment.reply %></p>
+        <div class="row">
+            <div class="col-md-12">
+                <p><%= comment.author.userName%></p>
+                <div><%- comment.reply %></div>
+            </div>
+        </div>
+        <% if (comment.author.id == session.user || group.admin == session.user) { %>
+          <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-danger pull-right deleteCommentBtn" value="<%= comment.id %>">Delete!</button>
+            </div>
           </div>
-      </div>
+        <% } %>
       <hr>
       <% }); %>
   </div>
