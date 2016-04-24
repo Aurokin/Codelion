@@ -22,7 +22,12 @@ $('#submitNewGroup').click(function(e) {
     }
     else {
       console.log("ERROR!!!");
-      window.alert("There Is Already One Group With That Name, Please Try A New Name!");
+      swal({
+        title: "Error!",
+        text: "There is already a group with that name, please try a new one!",
+        type: "error",
+        confirmButtonText: "Ok!"
+      });
     }
   });
 
@@ -51,7 +56,12 @@ $('#addGroupMember').click(function(e) {
     }
     else {
       console.log("ERROR!!!");
-      window.alert("User Not Found, Or Already A Member!");
+      swal({
+        title: "Error!",
+        text: "User not found, or they are already a member of the group!",
+        type: "error",
+        confirmButtonText: "Ok!"
+      });
     }
   });
 });
@@ -79,7 +89,12 @@ $('.removeGroupMember').click(function(e) {
     }
     else {
       console.log("ERROR!!!");
-      window.alert("User Not Found, Or Not In Group!");
+      swal({
+        title: "Error!",
+        text: "User Not Found In Group!",
+        type: "error",
+        confirmButtonText: "Ok!"
+      });
     }
   });
 });
@@ -105,7 +120,12 @@ $('#createNewPost').click(function(e) {
       console.log("Group Success!");
       window.location.href = 'http://'+window.location.host+'/group/posts/'+group;
     } else {
-      alert("Post Error!");
+      swal({
+        title: "Error!",
+        text: "Error Creating Post!",
+        type: "error",
+        confirmButtonText: "Ok!"
+      });
     }
     console.log('Posted');
     console.log(data);
@@ -132,7 +152,12 @@ $('#submitComment').click(function(e) {
       console.log("Comment Created!");
       location.reload();
     } else {
-      alert("Comment Error!");
+      swal({
+        title: "Error!",
+        text: "Error Creating Comment!",
+        type: "error",
+        confirmButtonText: "Ok!"
+      });
     }
     console.log('Posted');
     console.log(data);
