@@ -18,6 +18,8 @@ cd Codelion
 4) Install dependencies
 ```
 sudo npm install
+sudo npm install bcrypt
+sudo npm install sails-postgresql
 ```
 5) Install PostgreSQL
 ```
