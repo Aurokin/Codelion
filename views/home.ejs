@@ -35,29 +35,30 @@
     </div>
     <div class="col-xs-6">
       <div class="well" id="well">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="#">   <strong> I'm getting a NullPointerException </strong> </a>
-                <span class="pull-right">10 days ago</span>
-                <p>Every time I try to compile the webapp that I have been building I get the same...</p>
-            </div>
-        </div>
-        <hr>
+        <% if (user.posts[0]) { %>
+          <% var count = 0; %>
+          <% user.posts.forEach(function(post) { %>
+            <% if (count < 3) { %>
+              <% if (count > 0) { %>
+                <hr>
+              <% } %>
+              <div class="row">
+                  <div class="col-md-12">
+                      <a href="/group/post/<%= post.id %>"><strong><%= post.title %></strong></a>
+                      <span class="pull-right"></span>
+                      <p><%= post.question %></p>
+                  </div>
+              </div>
+              <% count = count + 1; %>
+            <% } %>
+          <% }); %>
+        <% } else { %>
         <div class="row">
           <div class="col-md-12">
-            <a href="#"> <strong> PHP 100% CPU usage with Sublime Text 3</strong> </a>
-            <span class="pull-right">12 days ago</span>
-            <p>The website I'm creating uses primarily PHP, and our company uses Sublime Text 3 as our standard platform IDE. From time to time, it start PHP processes...</p>
+            <h3>No Posts Found!</h3>
           </div>
         </div>
-        <hr>
-        <div class="row">
-          <div class="col-md-12">
-            <a href="#">  <strong> Do you need a Java Runtime Environment???</strong> ></a>
-            <span class="pull-right">3 days ago</span>
-            <p>The work that I'm doing requires me to write in Eclipse, the problem is that...</p>
-          </div>
-        </div>
+        <% } %>
       </div>
     </div>
   </div>

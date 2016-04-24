@@ -74,7 +74,7 @@ module.exports = {
 	home: function(req, res) {
 		//console.log(req.session.user);
 		if (req.session.user) {
-			User.findOne(req.session.user).populate('admins').populate('groups').exec(function(err, user) {
+			User.findOne(req.session.user).populate('admins').populate('groups').populate('posts').exec(function(err, user) {
 				if (err) {
 					res.view('error', {error: 'Group Error'});
 				}
